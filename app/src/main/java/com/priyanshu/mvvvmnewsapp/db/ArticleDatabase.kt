@@ -2,16 +2,16 @@ package com.priyanshu.mvvvmnewsapp.db
 
 import android.content.Context
 import androidx.room.*
+import androidx.room.migration.AutoMigrationSpec
 import com.priyanshu.mvvvmnewsapp.model.Article
 
 @Database(
-    version = 1,
-    entities = [Article::class],
+    version = 2,
+    entities = [Article::class]
 )
 
 @TypeConverters(Convertors::class)
 abstract class ArticleDatabase : RoomDatabase() {
-
     abstract fun getArticleDao(): ArticleDao
 
     companion object{
@@ -30,7 +30,7 @@ abstract class ArticleDatabase : RoomDatabase() {
              context.applicationContext,
              ArticleDatabase::class.java,
              "article-db.db"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
 
 
     }
